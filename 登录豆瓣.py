@@ -9,9 +9,9 @@ def main():
     headers = { "User-Agent":'Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.0; Trident/4.0)'}#浏览器信息
     data = {
         'ck': '',
-        'name': '19955783189',
-        'password': 'wang18255773897',                   #豆瓣账户信息
-        'remember': 'false',
+        'name': '用户名',
+        'password': '密码',                   #豆瓣账户信息
+        'remember': 'false', # 是否记住密码
         'ticket': ''
     }
 
