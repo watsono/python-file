@@ -1,0 +1,60 @@
+# 仅可自己使用，不可商用
+# 需要先安装phantomjs
+
+
+#!/usr/bin/env python3
+# -*- coding = utf-8 -*-
+import requests
+from selenium import webdriver
+import re            #导入需要的库
+
+def main():
+    driver = webdriver.PhantomJS(
+        executable_path=r"E:\phantomjs-2.1.1-windows\bin\phantomjs.exe") # phantomjs的安装路径 
+    headers = {'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101 Firefox/68.0',
+               'Cookie':'自己的cookie'} # 自己的cooke
+
+    f = open("文件存储路径\\游侠网.txt", 'w', encoding='utf-8') # 文件存储路径
+    nums = int(input("请输入页数：")) # 输入需要爬取的页数
+    i = 1
+    while i <= nums:
+        url1 = "https://down.ali213.net/pcgame/all/0-0-0-0-new-pic-"
+        url_head = url1 + str(i)
+        print(url_head)
+        i = i+1
+
+        def write(word):
+            f.write(word)
+
+        def get_html(url):
+            driver.get(url)
+            responses = driver.page_source  #模拟浏览器请求
+            return responses
+
+        html = get_html(url_head)
+        games_infos = re.findall(r'<div class="game-name">(.*?)<.*?href="(.*?)"',html,re.S)
+        for games_info in games_infos:
+            game_name = games_info[0]
+            game_href = games_info[1].replace('#xgxz','') # 替换无用的字符串
+            print(game_name)
+            game_url = "https://down.ali213.net"+game_href
+
+            game_html = get_html(game_url)
+            try:                                                  # 出现错误自动向下执行
+                game_info_url = re.findall(r'class="pageCont".*?src="//(.*?)"',game_html,re.S)[0]
+                game_info_url = "http://"+game_info_url
+
+                game_down_html = get_html(game_info_url)
+                game_down_url = re.findall(r'class="result_wp".*?href="(.*?)"',game_down_html,re.S)[0]
+
+                baidu_html = get_html(game_down_url)
+                baidu_url = re.findall(r'id="wpbtn".*?href="(.*?)"',baidu_html,re.S)[0]
+                write("%s      " % game_name)
+                write("%s\n" % baidu_url)
+            except:
+                print("出现错误")
+                pass
+                continue
+
+if __name__ == "__main__": # 主函数
+    main()
