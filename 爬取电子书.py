@@ -1,3 +1,6 @@
+#仅可自己使用，不可商业用途
+
+
 #!/usr/bin/env python3
 # -*- coding = utf-8 -*-
 import requests
