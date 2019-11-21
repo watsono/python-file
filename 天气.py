@@ -12,4 +12,8 @@ response.encoding = 'utf-8'
 html = response.text
 
 weathers = re.findall(r'class="sky skyid lv.*?<h1>(.*?)<.*?<p.*?>(.*?)<.*?tem">(.*?)</p>',html,re.S)
-print(weathers)
+for weather in weathers:
+    print(weather[0])
+    print(weather[1])
+    print(weather[2].replace('<i>','最低气温为').replace('</i>','').replace('<span>','最高气温为').replace('</span>/',','))
+    print('\n')
