@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding = utf-8 -*-
 import requests
-import re       # 导入数据库
+import re       # 正则匹配
 
 i = 1
 while i <= 1134:
