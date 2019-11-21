@@ -75,7 +75,7 @@ class BiAnWang(object):
                 session = requests.session()
                 a = JpgUrls[-4:]
                 response = session.get(JpgUrls, headers=self.Header).content
-                with open("图片下载路径/%s" % JpgName + a, "wb") as f:
+                with open("图片下载路径/%s" % JpgName + a, "wb") as f: #添加自己的存储路径
                     f.write(response)
                     print("图片下载成功")
         except OSError:
